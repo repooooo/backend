@@ -1,0 +1,6 @@
+[submodule "microservices/email"]
+	path = microservices/email
+	url = git@github.com:repooooo/email-service.git
+[submodule "microservices/auth"]
+	path = microservices/auth
+	url = git@github.com:repooooo/auth-service.git
