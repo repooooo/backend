@@ -4,3 +4,6 @@
 [submodule "microservices/auth"]
 	path = microservices/auth
 	url = git@github.com:repooooo/auth-service.git
+[submodule "microservices/protos"]
+	path = microservices/protos
+	url = git@github.com:repooooo/protos.git
