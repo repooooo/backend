@@ -1,0 +1,49 @@
+services:
+
+  auth-service:
+    container_name: auth-service
+    build:
+      context: ../microservices/auth
+      secrets:
+        - github_token
+    depends_on:
+      database:
+        condition: service_healthy
+    ports:
+      - "44044:44044"
+    volumes:
+      - "./configs/auth-service.yaml:/root/config.yaml"
+    networks:
+      - microservices-network
+      - database-network
+    command: ["sh", "-c", "./app --config=./config.yaml"]
+
+  database:
+    container_name: database
+    image: postgres:14.1-alpine
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -d postgres -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    environment:
+      POSTGRES_DB: "postgres"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    volumes:
+      - database-data:/var/lib/postgresql/data
+    networks:
+      - database-network
+
+networks:
+  microservices-network:
+    driver: bridge
+  database-network:
+    driver: bridge
+volumes:
+  database-data:
+
+secrets:
+  github_token:
+    file: ./secrets/github_token
