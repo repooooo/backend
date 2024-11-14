@@ -16,7 +16,7 @@ services:
     networks:
       - microservices-network
       - database-network
-    command: ["sh", "-c", "./app --config=./config.yaml"]
+    command: ["sh", "-c", "./app --config=/root/config.yaml"]
 
   database:
     container_name: database
