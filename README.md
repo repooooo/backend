@@ -1,11 +1,10 @@
 # backend
 
 ```bash
-git clone https://github.com/repooooo/backend.git
+git clone --recursive https://github.com/repooooo/backend.git
 ```
-```bash
-cd backend
-```
+
+for update:
 ```bash
 git submodule update --init --recursive
 ```
