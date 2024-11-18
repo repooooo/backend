@@ -46,11 +46,11 @@ clean:
 	@echo "Stopping containers, removing volumes and images..."
 	docker-compose -f $(DOCKER_COMPOSE_FILE_LOCAL) down -v --rmi all
 
-SECRETS_DIR=./infrastructure/tests/secrets
-LOGS_DIR=./infrastructure/tests/logs
+SECRETS_DIR=./infrastructure/common/secrets
+LOGS_DIR=./infrastructure/common/logs
 GITHUB_TOKEN_FILE=$(SECRETS_DIR)/github_token
-AUTH_SERVICE_LOG_FILE=$(LOGS_DIR)/auth-service.log
-EMAIL_SERVICE_LOG_FILE=$(LOGS_DIR)/email-service.log
+AUTH_SERVICE_LOG_FILE=$(LOGS_DIR)/auth-service.json
+EMAIL_SERVICE_LOG_FILE=$(LOGS_DIR)/email-service.json
 
 log_files=$(AUTH_SERVICE_LOG_FILE) $(EMAIL_SERVICE_LOG_FILE)
 
@@ -60,7 +60,7 @@ DATABASE=database
 AUTH_SERVICE=auth-service
 EMAIL_SERVICE=email-service
 
-init-tests-secrets:
+init-secrets:
 	@echo "Checking for required secrets files..."
 
 	@mkdir -p $(SECRETS_DIR)
@@ -79,7 +79,7 @@ init-tests-secrets:
     		echo "github_token already contains a valid key."; \
     	fi
 
-init-tests-logs:
+init-logs:
 	@echo "Checking for required logs files..."
 
 	@mkdir -p $(LOGS_DIR)
@@ -93,9 +93,9 @@ init-tests-logs:
     		fi \
     	done
 
-init-tests-all: init-tests-logs init-tests-secrets
+init-all: init-logs init-secrets
 
-test-auth-service:
+test-auth-service: init-all
 	@echo "Starting auth-service and database..."
 	docker-compose -f $(DOCKER_COMPOSE_FILE_TEST) up -d $(AUTH_SERVICE) $(DATABASE)
 
