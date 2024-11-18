@@ -49,8 +49,8 @@ clean:
 SECRETS_DIR=./infrastructure/common/secrets
 LOGS_DIR=./infrastructure/common/logs
 GITHUB_TOKEN_FILE=$(SECRETS_DIR)/github_token
-AUTH_SERVICE_LOG_FILE=$(LOGS_DIR)/auth-service.json
-EMAIL_SERVICE_LOG_FILE=$(LOGS_DIR)/email-service.json
+AUTH_SERVICE_LOG_FILE=$(LOGS_DIR)/auth-service.log
+EMAIL_SERVICE_LOG_FILE=$(LOGS_DIR)/email-service.log
 
 log_files=$(AUTH_SERVICE_LOG_FILE) $(EMAIL_SERVICE_LOG_FILE)
 
@@ -97,7 +97,7 @@ init-all: init-logs init-secrets
 
 test-auth-service: init-all
 	@echo "Starting auth-service and database..."
-	docker-compose -f $(DOCKER_COMPOSE_FILE_TEST) up -d $(AUTH_SERVICE) $(DATABASE)
+	docker-compose -f $(DOCKER_COMPOSE_FILE_TEST) up -d --build $(AUTH_SERVICE) $(DATABASE)
 
 	@echo "Running Go tests for auth-service..." \
 	&& cd ./microservices/auth \

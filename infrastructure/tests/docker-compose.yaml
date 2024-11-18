@@ -19,7 +19,7 @@ services:
       - "5050:5050" # httpServer
     volumes:
       - "./configs/auth-service.yaml:/root/config.yaml"
-      - "../common/logs/auth-service.json:/root/logs/auth-service.json"
+      - "../common/logs/auth-service.log:/root/logs/auth-service.log"
     networks:
       - test-network
     command: ["sh", "-c", "./app --config=/root/config.yaml"]
