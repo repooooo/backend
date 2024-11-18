@@ -7,6 +7,3 @@
 [submodule "microservices/protos"]
 	path = microservices/protos
 	url = git@github.com:repooooo/protos.git
-[submodule "monitoring/grafana"]
-	path = monitoring/grafana
-	url = git@github.com:repooooo/grafana.git
