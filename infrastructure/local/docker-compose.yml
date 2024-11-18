@@ -47,4 +47,4 @@ volumes:
 
 secrets:
   github_token:
-    file: ./secrets/github_token
+    file: ../common/secrets/github_token
