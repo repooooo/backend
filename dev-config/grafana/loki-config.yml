@@ -1,0 +1,21 @@
+auth_enabled: false
+
+server:
+  http_listen_port: 3100
+
+ingester:
+  wal:
+    enabled: true
+  chunk_target_size: 1048576
+  max_chunk_age: 1h
+
+storage_config:
+  boltdb_shipper:
+    active_index_directory: /loki/index
+    cache_location: /loki/cache
+    cache_ttl: 24h
+  filesystem:
+    directory: /loki/chunks
+
+chunk_target_size: 1048576
+max_chunk_age: 1h
