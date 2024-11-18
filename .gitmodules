@@ -1,3 +1,6 @@
+[submodule "grafana"]
+	path = grafana
+	url = git@github.com:repooooo/grafana.git
 [submodule "microservices/email"]
 	path = microservices/email
 	url = git@github.com:repooooo/email-service.git
