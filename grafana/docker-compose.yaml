@@ -12,7 +12,7 @@ services:
     container_name: promtail
     volumes:
       - "./promtail-config.yml:/etc/promtail/promtail-config.yml"
-      - "../../microservices/auth/tests/test-config/logs/auth-service.log:/var/log/auth-service.log"
+      - "../test-config/logs:/var/log"
     depends_on:
       - loki
 

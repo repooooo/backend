@@ -1,0 +1,50 @@
+services:
+
+  auth-service:
+    build:
+      context: ../../
+      secrets:
+        - github_token
+    depends_on:
+      database:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "wget", "--spider", "--timeout=5", "http://localhost:5050/health" ]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    ports:
+      - "44044:44044" # grpcServer
+      - "5050:5050" # httpServer
+    volumes:
+      - "./configs/auth-service.yaml:/root/config.yaml"
+      - "./logs/auth-service.log:/root/logs/auth-service.log"
+    networks:
+      - test-network
+    command: ["sh", "-c", "./app --config=/root/config.yaml"]
+
+  database:
+    image: postgres:14.1-alpine
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -d postgres -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: "postgres"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    networks:
+      - test-network
+
+networks:
+  test-network:
+    driver: bridge
+
+secrets:
+  github_token:
+    file: secrets/github_token
