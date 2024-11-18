@@ -3,7 +3,7 @@ services:
   auth-service:
     container_name: auth-service
     build:
-      context: ../microservices/auth
+      context: ../../microservices/auth
       secrets:
         - github_token
     depends_on:

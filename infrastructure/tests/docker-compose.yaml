@@ -2,7 +2,7 @@ services:
 
   auth-service:
     build:
-      context: ../../
+      context: ../../microservices/auth
       secrets:
         - github_token
     depends_on:
