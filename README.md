@@ -9,6 +9,23 @@ for update:
 git submodule update --init --recursive
 ```
 
+for update branches:
+```bash
+git submodule foreach "
+    git fetch origin &&
+    git checkout master &&
+    git branch --set-upstream-to=origin/master master &&
+    git pull
+"
+```
+```bash
+git submodule update --remote
+```
+```bash
+git add . && \
+git commit -m "Switched all submodules to the master branch"
+```
+
 ## Project Structure
 
 The project is organized into multiple microservices, each stored as a separate Git submodule within the `microservices/` directory.
