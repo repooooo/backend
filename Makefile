@@ -14,6 +14,10 @@ run: build
 	@echo "Building and starting containers in detached mode..."
 	docker-compose -f $(DOCKER_COMPOSE_FILE_LOCAL) up -d
 
+run-log: build
+	@echo "Building and starting containers in detached mode..."
+	docker-compose -f $(DOCKER_COMPOSE_FILE_LOCAL) up
+
 run-no-cache: build-no-cache
 	@echo "Building without cache and starting containers in detached mode..."
 	docker-compose -f $(DOCKER_COMPOSE_FILE_LOCAL) up -d
